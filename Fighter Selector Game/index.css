@@ -1,0 +1,22 @@
+body{
+    background-color: beige;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+button {
+    font-size: larger;
+    border-radius: 5px;
+    border-color: transparent;
+    background-color: darkseagreen;
+    text-align: center;
+    color: brown;
+}
+
+p {
+    font-size: small;
+}
