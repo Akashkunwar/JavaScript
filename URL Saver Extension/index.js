@@ -11,52 +11,61 @@ if (JSON.parse(localStorage.getItem("myLinks"))) {
     render(myLinks)
 }
 
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+    inputEl.value = tabs[0].url;
+})
+
+// saveTabBtn.addEventListener('click', function() {
+//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+//         let allData = [];
+//         allData.push([tabs[0].url]);
+
+//         if (inputDisEl.value.length>0) {
+//         allData.push(inputDisEl.value)
+//         } else {allData.push("No Description")}
+        
+//         myLinks.push(allData);
+//         localStorage.setItem("myLinks", JSON.stringify(myLinks))
+//         render(myLinks)
+//         inputDisEl.value = '';
+//     })
+// })
+
+function clearValue(field){
+ field.value = ''
+}
 
 function render (links) {
-    let listItem =  `
-        <tr>
-            <th>
-                URLs
-            </th>
-            <th>
-                Discription
-            </th>
-        </tr>`
+    let listItem =  ''
     for (let i = links.length-1; i>=0; i--) {
-        // listItem += `
-        // <li>
-        //     <a target="_blank" href="${links[i][0]}">
-        //         ${links[i][0]}
-        //     </a>
-        // </li>` 
         listItem += `
-            <tr>
-                <th>
-                <a target="_blank" href="${links[i][0]}">
-                        ${links[i][0]}
-                </a>
-                </th>
-                <th>
-                    ${links[i][1]}
-                </th>
-            </tr>`
+        <li class='show list-group-item'>
+            <a target="_blank" href="${links[i][0]}">
+                ${links[i][0]}
+            </a>
+        </li>
+        <li class='hide list-group-item'>
+            ${links[i][1]}
+        </li>`
     }
     ulEl.innerHTML=listItem
 }
 
 inputBtn.addEventListener('click', function () {
     let allData = [];
+    if (inputEl.value.length>0) {
     allData.push(inputEl.value)
-    allData.push(inputDisEl.value)
+    if (inputDisEl.value.length>0) {
+        allData.push(inputDisEl.value)
+        } else {allData.push("No Description")}
     myLinks.push(allData);
-    // Save data in local storage
     localStorage.setItem("myLinks", JSON.stringify(myLinks))
     console.log(JSON.parse(localStorage.getItem("myLinks")))
 
     render(myLinks)
     inputEl.value = '';
     inputDisEl.value = '';
-})
+}})
 
 deleteBtn.addEventListener('dblclick', function () {
     localStorage.clear()
@@ -66,8 +75,16 @@ deleteBtn.addEventListener('dblclick', function () {
 
 saveTabBtn.addEventListener('click', function() {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-        myLinks.push(tabs[0].url)
+        let allData = [];
+        allData.push([tabs[0].url]);
+
+        if (inputDisEl.value.length>0) {
+        allData.push(inputDisEl.value)
+        } else {allData.push("No Description")}
+        
+        myLinks.push(allData);
         localStorage.setItem("myLinks", JSON.stringify(myLinks))
         render(myLinks)
+        inputDisEl.value = '';
     })
 })

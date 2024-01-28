@@ -1,11 +1,48 @@
 body {
     padding: 20px;
-    margin: 0px;
     font-family: 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
     background-color: #f5f2f5;
+    margin: 0;
 }
 
-input {
+.logo {
+    height: 40px; 
+    margin-right: 10px;
+    border: 2px solid white;
+    border-radius: 28px;
+    vertical-align: middle;
+}
+
+.menu {
+    height: 40px; 
+    margin-left: auto;
+}
+
+.menu:hover {
+    box-shadow: white;
+}
+
+h1 {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #fff;
+    text-align: center;
+    background-color: #9c15a3;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 -20px;
+    margin-bottom: 20px;
+    margin-top: -20px;
+    display: flex;
+    align-items: center;
+}
+
+h1:hover, button:hover, input:hover, textarea:hover {
+    box-shadow: 0 0 5px #9c15a3;
+}
+
+input, textarea {
+    border-radius: 4px;
+    color: #96339d;
     min-width: 400px;
     border: none;
     width: 100%;
@@ -16,13 +53,14 @@ input {
     background-color: #e6cde8;
 }
 
-input:focus {
+textarea:focus, input:focus {
     outline: none !important;
     border:1px solid #9c15a3;
     box-shadow: 0 0 10px #b849be;
   }
 
 button {
+    border-radius: 4px;
     font-size: medium;
     font-weight: bold;
     background-color: #b849be;
@@ -38,6 +76,7 @@ button {
 
 li a {
     color: #b849be;
+    text-decoration: none;
 }
 
 a:hover {
@@ -52,4 +91,23 @@ ul {
 
 li {
     margin-top: 5px;
+}
+
+.show:hover + .hide{
+    display: block;
+    color: #96339d;
+    border: 2px solid #e389e9;
+    border-radius: 6px;
+    background-color: #eddcee;
+    padding: 1px;
+}
+
+.hide {
+    display: none;
+}
+
+.copyright {
+    margin-top: 20px; 
+    text-align: center; 
+    color: #666;
 }
