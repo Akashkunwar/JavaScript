@@ -31,9 +31,16 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
 //     })
 // })
 
-function clearValue(field){
- field.value = ''
-}
+inputEl.addEventListener('click',function () {
+    inputEl.value = ''
+})
+inputDisEl.addEventListener('click',function () {
+    inputDisEl.value = ''
+})
+
+// function clearValue(field){
+//  field.value = ''
+// }
 
 function render (links) {
     let listItem =  ''
@@ -55,7 +62,7 @@ inputBtn.addEventListener('click', function () {
     let allData = [];
     if (inputEl.value.length>0) {
     allData.push(inputEl.value)
-    if (inputDisEl.value.length>0) {
+    if (inputDisEl.value.length>0 || inputDisEl.value === "Please Enter URL Description") {
         allData.push(inputDisEl.value)
         } else {allData.push("No Description")}
     myLinks.push(allData);
