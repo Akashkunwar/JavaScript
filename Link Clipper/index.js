@@ -62,9 +62,9 @@ inputBtn.addEventListener('click', function () {
     let allData = [];
     if (inputEl.value.length>0) {
     allData.push(inputEl.value)
-    if (inputDisEl.value.length<=0 || inputDisEl.value === "Please Enter URL Description") {
-        allData.push("No Description")
-        } else {allData.push(inputDisEl.value)}
+    if (inputDisEl.value.length>0 || inputDisEl.value === "Please Enter URL Description") {
+        allData.push(inputDisEl.value)
+        } else {allData.push("No Description")}
     myLinks.push(allData);
     localStorage.setItem("myLinks", JSON.stringify(myLinks))
     console.log(JSON.parse(localStorage.getItem("myLinks")))
