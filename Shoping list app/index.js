@@ -23,13 +23,15 @@ onValue(shopingListInDb, function(snapshot) {
         let currentItemValues = currentItem[1]
         appendItemInList(currentItem)
     }} else {
-        shoppintItemEl.innerHTML = "No Item to show ..."
+        shoppintItemEl.innerHTML = "<li>No Item to show ...</li>"
     }
 });
 
 addButtonEl.addEventListener('click', function(){
+    if (inputFieldEl.value.length>0)
+    {
     push(shopingListInDb, inputFieldEl.value)
-    clearInput()
+    clearInput()}
 })
 
 function clearShopingList () {
@@ -46,10 +48,8 @@ function appendItemInList (item) {
     let newEl = document.createElement("li")
     newEl.textContent = itemValue
     newEl.addEventListener('dblclick', function() {
-        // console.log(itemId)
         let exactLocationInDb = ref(database, `shopingList/${itemId}`)
         remove(exactLocationInDb)
     })
     shoppintItemEl.append(newEl)
-    // shoppintItemEl.innerHTML+=`<li>${itemValue}</li>`
 }
