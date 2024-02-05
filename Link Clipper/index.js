@@ -3,7 +3,7 @@ const inputDisEl = document.getElementById("input-dis-el")
 const inputBtn = document.getElementById('input-btn')
 const ulEl = document.getElementById('ul-el')
 const deleteBtn = document.getElementById('delete-btn')
-const saveTabBtn = document.getElementById('tab-btn')
+const clearBtn = document.getElementById('clear-btn')
 
 let myLinks = [];
 if (JSON.parse(localStorage.getItem("myLinks"))) {
@@ -15,45 +15,26 @@ chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
     inputEl.value = tabs[0].url;
 })
 
-// saveTabBtn.addEventListener('click', function() {
-//     chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-//         let allData = [];
-//         allData.push([tabs[0].url]);
-
-//         if (inputDisEl.value.length>0) {
-//         allData.push(inputDisEl.value)
-//         } else {allData.push("No Description")}
-        
-//         myLinks.push(allData);
-//         localStorage.setItem("myLinks", JSON.stringify(myLinks))
-//         render(myLinks)
-//         inputDisEl.value = '';
-//     })
-// })
-
-inputEl.addEventListener('click',function () {
-    inputEl.value = ''
-})
-inputDisEl.addEventListener('click',function () {
-    inputDisEl.value = ''
-})
-
-// function clearValue(field){
-//  field.value = ''
-// }
-
 function render (links) {
     let listItem =  ''
     for (let i = links.length-1; i>=0; i--) {
+        if (links[i][1]==="No Description") {
+            listItem += `
+        <li class='show list-group-item'>
+            <a target="_blank" href="${links[i][0]}">
+                ${String(links[i][0]).length > 40 ? String(links[i][0]).substring(0, 40)+"..." : String(links[i][0])}
+            </a>
+        </li>`;
+        } else
         listItem += `
         <li class='show list-group-item'>
             <a target="_blank" href="${links[i][0]}">
-                ${links[i][0]}
+                ${String(links[i][0]).length > 40 ? String(links[i][0]).substring(0, 40)+"..." : String(links[i][0])}
             </a>
         </li>
-        <li class='hide list-group-item'>
+        <li class='hide list-group-item' id = 'description'>
             ${links[i][1]}
-        </li>`
+        </li>`;    
     }
     ulEl.innerHTML=listItem
 }
@@ -80,18 +61,7 @@ deleteBtn.addEventListener('dblclick', function () {
     render(myLinks)
 })
 
-saveTabBtn.addEventListener('click', function() {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
-        let allData = [];
-        allData.push([tabs[0].url]);
-
-        if (inputDisEl.value.length>0) {
-        allData.push(inputDisEl.value)
-        } else {allData.push("No Description")}
-        
-        myLinks.push(allData);
-        localStorage.setItem("myLinks", JSON.stringify(myLinks))
-        render(myLinks)
-        inputDisEl.value = '';
-    })
+clearBtn.addEventListener('click', function() {
+    inputEl.value = '';
+    inputDisEl.value = '';
 })
